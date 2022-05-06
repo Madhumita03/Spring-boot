@@ -1,0 +1,58 @@
+#used for more readability, disallows duplicate values
+# --- means another document inside the same yaml file
+server:
+    port: 8083
+spring:
+    profiles:
+        active: qa
+---
+spring:
+    profiles: dev
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: admin
+        url: jdbc:mysql://localhost:3306/dcbapp
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+welcome:
+    Message: Hello World
+
+---
+spring:
+    profiles: qa
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: admin
+        url: jdbc:mysql://localhost:3306/dcbapp-qa
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+welcome:
+    Message: Hello World
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+                exclude: "env,beans"
+
+---
+spring:
+    profiles: prod
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        password: admin
+        url: jdbc:mysql://localhost:3306/dcbapp-prod
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+welcome:
+    Message: Hello World
